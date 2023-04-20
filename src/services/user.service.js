@@ -23,6 +23,14 @@ const getAllUsers = async () => {
   return response;
 };
 
+const getUserById = async (id) => {
+  const response = await User.findByPk(id, {
+    attributes: ['id', 'displayName', 'email', 'image'],
+  });
+
+  return response;
+};
+
 const createUser = async ({ displayName, email, password, image }) => {
   await User.create({ displayName, email, password, image });
 };
@@ -32,4 +40,5 @@ module.exports = {
   getUser,
   getAllUsers,
   createUser,
+  getUserById,
 };

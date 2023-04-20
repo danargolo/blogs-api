@@ -1,5 +1,5 @@
 const express = require('express');
-const { insertUser, selectUsers } = require('../controllers/user.controller');
+const { insertUser, selectUsers, selectUserById } = require('../controllers/user.controller');
 const { validateInputs } = require('../middlewares/validateInputs');
 const { validateToken } = require('../middlewares/validateToken');
 
@@ -7,6 +7,7 @@ const router = express.Router();
 
 router
   .post('/', validateInputs, insertUser)
-  .get('/', validateToken, selectUsers);
+  .get('/', validateToken, selectUsers)
+  .get('/:id', validateToken, selectUserById);
 
 module.exports = router;

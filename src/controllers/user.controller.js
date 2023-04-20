@@ -1,4 +1,9 @@
-const { getUser, getAllUsers, checkUser, createUser } = require('../services/user.service');
+const { 
+  getUser, 
+  getAllUsers, 
+  checkUser, 
+  createUser,
+  getUserById } = require('../services/user.service');
 const { generateToken } = require('../utils/auth');
 const { throwError } = require('../utils/throwError');
 
@@ -42,8 +47,22 @@ const selectUsers = async (req, res, next) => {
   }
 };
 
+const selectUserById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = await getUserById(id);
+
+    if (!data) { throwError('User does not exist', 404); }
+
+    return res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getLogin,
   insertUser,
   selectUsers,
+  selectUserById,
 };
