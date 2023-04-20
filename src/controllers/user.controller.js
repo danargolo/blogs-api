@@ -1,9 +1,12 @@
+const { verifyToken } = require('../utils/auth');
+
 const { 
   getUser, 
   getAllUsers, 
   checkUser, 
   createUser,
-  getUserById } = require('../services/user.service');
+  getUserById, 
+  deleteUser} = require('../services/user.service');
 const { generateToken } = require('../utils/auth');
 const { throwError } = require('../utils/throwError');
 
@@ -24,8 +27,9 @@ const getLogin = async (req, res, next) => {
 const insertUser = async (req, res, next) => {
   try {
     const { body } = req;
+    const data = await checkUser(body.email);
 
-    if (await checkUser(body.email) !== 0) { 
+    if (data) { 
       throwError('User already registered', 409);
     }
     await createUser(body);
@@ -60,9 +64,24 @@ const selectUserById = async (req, res, next) => {
   }
 };
 
+const destroyUser = async (req, res, next) => {
+  const { authorization } = req.headers;
+  const response = verifyToken(authorization);
+
+  const data = await checkUser(response.email);
+
+  console.log(data.dataValues.id);
+
+  await deleteUser(data.dataValues.id);
+
+  return res.status(204).json();
+
+}
+
 module.exports = {
   getLogin,
   insertUser,
   selectUsers,
   selectUserById,
+  destroyUser
 };

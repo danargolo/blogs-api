@@ -2,10 +2,19 @@ const { Op } = require('sequelize');
 const { User } = require('../models');
 
 const checkUser = async (email) => {
-  const response = await User.count({ where: { email } });
+  const response = await User.findOne({ where: { email }, 
+    attributes: ['id', 'displayName', 'email'], });
   return response;
 };
 
+// const getUser = async (email) => {
+//   const response = await User.findOne({
+//     where: {
+//      email 
+//     },
+//   });
+//   return response;
+// };
 const getUser = async (email, password) => {
   const response = await User.findOne({
     where: {
@@ -35,10 +44,15 @@ const createUser = async ({ displayName, email, password, image }) => {
   await User.create({ displayName, email, password, image });
 };
 
+const deleteUser = async (id) => {
+  await User.destroy({ where: { id } });
+}
+
 module.exports = {
   checkUser,
   getUser,
   getAllUsers,
   createUser,
   getUserById,
+  deleteUser
 };
