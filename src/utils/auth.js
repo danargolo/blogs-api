@@ -13,6 +13,23 @@ const generateToken = (data) => {
   return token;
 };
 
+const verifyToken = (token) => {
+  if (!token) {
+    throw Object.assign(
+      new Error('Token not found'), 
+      { status: 401 },
+    );
+  }
+  try {
+    const isValid = jwt.verify(token, JWT_SECRET)
+    return isValid;
+    
+  } catch (error) {
+    return error
+  }
+}
+
 module.exports = {
   generateToken,
+  verifyToken,
 };

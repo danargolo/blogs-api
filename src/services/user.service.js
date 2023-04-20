@@ -16,7 +16,9 @@ const getUser = async (email, password) => {
 };
 
 const getAllUsers = async () => {
-  const response = await User.findAll();
+  const response = await User.findAll({
+    attributes: ['displayName', 'email', 'image']
+  });
 
   return response;
 }

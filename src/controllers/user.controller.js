@@ -1,4 +1,4 @@
-const { getUser, checkUser, createUser } = require('../services/user.service');
+const { getUser, getAllUsers, checkUser, createUser } = require('../services/user.service');
 const { generateToken } = require('../utils/auth');
 
 const getLogin = async (req, res, next) => {
@@ -23,7 +23,6 @@ const getLogin = async (req, res, next) => {
 const insertUser = async (req, res, next) => {
   try {
     const { body } = req;
-    console.log(body.email);
 
     if (await checkUser(body.email) !== 0) {
       throw Object.assign(
@@ -40,7 +39,20 @@ const insertUser = async (req, res, next) => {
   }
 };
 
+const selectUsers = async (req, res, next) => {
+  try {
+    const data = await getAllUsers();
+
+    return res.status(200).json(data)
+    
+  } catch (error) {
+    next(error)
+  }
+}
+
+
 module.exports = {
   getLogin,
   insertUser,
+  selectUsers
 };
