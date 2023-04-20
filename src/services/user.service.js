@@ -3,7 +3,7 @@ const { User } = require('../models');
 
 const checkUser = async (email) => {
   const response = await User.findOne({ where: { email }, 
-    attributes: ['id', 'displayName', 'email'], });
+    attributes: ['id', 'displayName', 'email'] });
   return response;
 };
 
@@ -46,7 +46,7 @@ const createUser = async ({ displayName, email, password, image }) => {
 
 const deleteUser = async (id) => {
   await User.destroy({ where: { id } });
-}
+};
 
 module.exports = {
   checkUser,
@@ -54,5 +54,5 @@ module.exports = {
   getAllUsers,
   createUser,
   getUserById,
-  deleteUser
+  deleteUser,
 };

@@ -6,7 +6,7 @@ const {
   checkUser, 
   createUser,
   getUserById, 
-  deleteUser} = require('../services/user.service');
+  deleteUser } = require('../services/user.service');
 const { generateToken } = require('../utils/auth');
 const { throwError } = require('../utils/throwError');
 
@@ -64,24 +64,26 @@ const selectUserById = async (req, res, next) => {
   }
 };
 
-const destroyUser = async (req, res, next) => {
+const getId = async (req) => {
   const { authorization } = req.headers;
   const response = verifyToken(authorization);
 
   const data = await checkUser(response.email);
+  return data.dataValues.id;
+};
 
-  console.log(data.dataValues.id);
-
-  await deleteUser(data.dataValues.id);
+const destroyUser = async (req, res, _next) => {
+  const userId = await getId(req);
+  await deleteUser(userId);
 
   return res.status(204).json();
-
-}
+};
 
 module.exports = {
   getLogin,
   insertUser,
   selectUsers,
   selectUserById,
-  destroyUser
+  getId,
+  destroyUser,
 };
