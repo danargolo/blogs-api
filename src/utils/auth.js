@@ -21,13 +21,12 @@ const verifyToken = (token) => {
     );
   }
   try {
-    const isValid = jwt.verify(token, JWT_SECRET)
+    const isValid = jwt.verify(token, JWT_SECRET);
     return isValid;
-    
   } catch (error) {
-    return error
+    return error;
   }
-}
+};
 
 module.exports = {
   generateToken,

@@ -5,12 +5,12 @@ const validateToken = async (req, res, next) => {
   const response = verifyToken(authorization);
   // console.log(response.email);
 
-  if(!response.email) {
-    return res.status(401).json({message: 'Expired or invalid token' })
+  if (!response.email) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
   next();
-}
+};
 
 module.exports = {
-  validateToken
-}
+  validateToken,
+};

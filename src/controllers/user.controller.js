@@ -43,16 +43,14 @@ const selectUsers = async (req, res, next) => {
   try {
     const data = await getAllUsers();
 
-    return res.status(200).json(data)
-    
+    return res.status(200).json(data);
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
-
+};
 
 module.exports = {
   getLogin,
   insertUser,
-  selectUsers
+  selectUsers,
 };

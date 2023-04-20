@@ -17,11 +17,11 @@ const getUser = async (email, password) => {
 
 const getAllUsers = async () => {
   const response = await User.findAll({
-    attributes: ['displayName', 'email', 'image']
+    attributes: ['displayName', 'email', 'image'],
   });
 
   return response;
-}
+};
 
 const createUser = async ({ displayName, email, password, image }) => {
   await User.create({ displayName, email, password, image });
