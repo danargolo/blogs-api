@@ -14,12 +14,6 @@ const generateToken = (data) => {
 };
 
 const verifyToken = (token) => {
-  if (!token) {
-    throw Object.assign(
-      new Error('Token not found'), 
-      { status: 401 },
-    );
-  }
   try {
     const isValid = jwt.verify(token, JWT_SECRET);
     return isValid;

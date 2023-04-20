@@ -1,12 +1,11 @@
+const { throwError } = require('../utils/throwError');
+
 const validateFields = (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      throw Object.assign(
-        new Error('Some required fields are missing'), 
-        { status: 400 },
-      );
+    if (!email || !password) { 
+      throwError('Some required fields are missing', 400);
     }
     next();
   } catch (error) {
