@@ -1,11 +1,12 @@
 const express = require('express');
-const { insertCategory } = require('../controllers/category.controller');
+const { insertCategory, selectCategories } = require('../controllers/category.controller');
 // const { validateInputs } = require('../middlewares/validateInputs');
-const { validateToken } = require('../middlewares/validateToken');
+// const { validateToken } = require('../middlewares/validateToken');
 
 const router = express.Router();
 
 router
-  .post('/', validateToken, insertCategory);
+  .post('/', insertCategory)
+  .get('/', selectCategories);
 
 module.exports = router;

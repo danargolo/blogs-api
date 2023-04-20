@@ -1,4 +1,4 @@
-const { createCategory, getCategory } = require('../services/category.service');
+const { createCategory, getCategory, getAllCategories } = require('../services/category.service');
 
 const { throwError } = require('../utils/throwError');
 
@@ -33,15 +33,15 @@ const insertCategory = async (req, res, next) => {
 //   }
 // };
 
-// const selectUsers = async (req, res, next) => {
-//   try {
-//     const data = await getAllUsers();
+const selectCategories = async (req, res, next) => {
+  try {
+    const data = await getAllCategories();
 
-//     return res.status(200).json(data);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+    return res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
 
 // const selectUserById = async (req, res, next) => {
 //   try {
@@ -58,4 +58,5 @@ const insertCategory = async (req, res, next) => {
 
 module.exports = {
   insertCategory,
+  selectCategories,
 };

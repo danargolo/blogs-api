@@ -2,6 +2,7 @@ const express = require('express');
 const loginRouter = require('./routers/login.router');
 const userRouter = require('./routers/user.router');
 const categoryRouter = require('./routers/category.router');
+const { validateToken } = require('./middlewares/validateToken');
 const error = require('./middlewares/error');
 
 // ...
@@ -17,7 +18,7 @@ app.use(express.json());
 
 app.use('/login', loginRouter);
 app.use('/user', userRouter);
-app.use('/categories', categoryRouter);
+app.use('/categories', validateToken, categoryRouter);
 
 app.use(error);
 
